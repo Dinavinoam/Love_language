@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>מבחן שפת האהבה</title>
+  <style>
+    body { font-family: Arial, sans-serif; direction: rtl; padding: 2rem; background: #fdf6f0; }
+    h1 { text-align: center; color: #a64d79; }
+    .question { margin-bottom: 2rem; }
+    .options label { display: block; margin: 0.5rem 0; cursor: pointer; }
+    button { background: #a64d79; color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 5px; cursor: pointer; }
+    #result { margin-top: 2rem; font-weight: bold; font-size: 1.2rem; color: #333; text-align: center; }
+  </style>
+</head>
+<body>
+  <h1>מבחן שפת האהבה שלי</h1>
+  <form id="loveLanguageTest">
+    <div class="question">
+      <p>1. מה משמח אותך יותר?</p>
+      <div class="options">
+        <label><input type="radio" name="q1" value="words"> כשאומרים לי מילים טובות</label>
+        <label><input type="radio" name="q1" value="touch"> כשמחבקים אותי</label>
+      </div>
+    </div>
+    <div class="question">
+      <p>2. מה גורם לך להרגיש נאהב?</p>
+      <div class="options">
+        <label><input type="radio" name="q2" value="service"> כשעוזרים לי בלי שביקשתי</label>
+        <label><input type="radio" name="q2" value="gifts"> כשנותנים לי מתנה עם משמעות</label>
+      </div>
+    </div>
+    <div class="question">
+      <p>3. מה מעדיף?</p>
+      <div class="options">
+        <label><input type="radio" name="q3" value="quality"> לבלות זמן איכות אמיתי</label>
+        <label><input type="radio" name="q3" value="words"> לשמוע מחמאות כנות</label>
+      </div>
+    </div>
+    <div class="question">
+      <p>4. מה חשוב לך יותר?</p>
+      <div class="options">
+        <label><input type="radio" name="q4" value="service"> שמישהו עושה משהו בשבילי</label>
+        <label><input type="radio" name="q4" value="quality"> שמישהו מקשיב לי באמת</label>
+      </div>
+    </div>
+    <div class="question">
+      <p>5. מה נוגע בך יותר?</p>
+      <div class="options">
+        <label><input type="radio" name="q5" value="gifts"> מתנות עם משמעות</label>
+        <label><input type="radio" name="q5" value="touch"> מגע פיזי כמו חיבוק</label>
+      </div>
+    </div>
+    <div class="question">
+      <p>6. מה משמח אותך יותר ביום קשה?</p>
+      <div class="options">
+        <label><input type="radio" name="q6" value="words"> עידוד במילים</label>
+        <label><input type="radio" name="q6" value="service"> שמישהו עושה בשבילי משהו קטן</label>
+      </div>
+    </div>
+    <div class="question">
+      <p>7. מה מחמם לך את הלב?</p>
+      <div class="options">
+        <label><input type="radio" name="q7" value="quality"> שיחה עמוקה בזמן איכות</label>
+        <label><input type="radio" name="q7" value="gifts"> מתנה קטנה בהפתעה</label>
+      </div>
+    </div>
+    <div class="question">
+      <p>8. איך אתה יודע שמישהו באמת אוהב אותך?</p>
+      <div class="options">
+        <label><input type="radio" name="q8" value="touch"> כשהוא לא מהסס לגעת בי</label>
+        <label><input type="radio" name="q8" value="words"> כשהוא אומר לי מה אני בשבילם</label>
+      </div>
+    </div>
+    <div class="question">
+      <p>9. מה עושה אותך מאושר ביום הולדת?</p>
+      <div class="options">
+        <label><input type="radio" name="q9" value="gifts"> לקבל מתנה עם משמעות</label>
+        <label><input type="radio" name="q9" value="quality"> שמישהו מקדיש לי זמן</label>
+      </div>
+    </div>
+    <div class="question">
+      <p>10. מה גורם לך להרגיש מוערך?</p>
+      <div class="options">
+        <label><input type="radio" name="q10" value="service"> שמישהו מתנדב לעזור לי</label>
+        <label><input type="radio" name="q10" value="touch"> שמישהו מחבק אותי ברגע הנכון</label>
+      </div>
+    </div>
+    <button type="button" onclick="calculateResult()">גלה את שפת האהבה שלך</button>
+  </form>
+  <div id="result"></div>
+
+  <script>
+    function calculateResult() {
+      const counts = { words: 0, touch: 0, service: 0, gifts: 0, quality: 0 };
+      for (let i = 1; i <= 10; i++) {
+        const answer = document.querySelector(`input[name="q${i}"]:checked`);
+        if (answer) counts[answer.value]++;
+      }
+      const sorted = Object.entries(counts).sort((a, b) => b[1] - a[1]);
+      const languageNames = {
+        words: 'מילים טובות',
+        touch: 'מגע פיזי',
+        service: 'מעשי שירות',
+        gifts: 'מתנות',
+        quality: 'זמן איכות'
+      };
+      const top = sorted[0];
+      const resultDiv = document.getElementById('result');
+      if (top[1] === 0) {
+        resultDiv.textContent = 'ענה על כל השאלות כדי לראות את התוצאה שלך.';
+      } else {
+        resultDiv.textContent = `שפת האהבה המרכזית שלך היא: "${languageNames[top[0]]}" ✨`;
+      }
+    }
+  </script>
+</body>
+</html>
